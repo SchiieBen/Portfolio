@@ -1,7 +1,7 @@
-Porfólio!!
-Projetos da faculdade, por hobby e trabalhos
-Apesar de que ainda não fiz nenhum considerável 
+# Portfólio
+Projetos feitos na faculdade serão apresentados aqui 
 
-Planos:
+# Planos
 Integração usando a neuro sdk em jogos
-Chatbot com tensorflow ou pytorch e API discord
+Chatbot com tensorflow / pytorch  
+Uso da API discord  
