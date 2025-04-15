@@ -1,52 +1,45 @@
 const userId = '423203807099355156';
-const socket = new WebSocket(`wss://api.lanyard.rest/socket`);
+const ws = new WebSocket(`wss://api.lanyard.rest/socket`);
 
-socket.addEventListener("open", () => {
-  socket.send(
-    JSON.stringify({
-      op: 2,
-      d: {
-        subscribe_to_id: userId,
-      },
-    })
-  );
-});
+let heartbeatInterval = null;
 
-socket.addEventListener("message", ({ data }) => {
-  const payload = JSON.parse(data);
-  if (payload.t !== "INIT_STATE" && payload.t !== "PRESENCE_UPDATE") return;
+ws.onmessage = ({ data }) => {
+    const payload = JSON.parse(data);
 
-  const user = payload.d.discord_user;
-  const status = payload.d.discord_status;
-  const activity = payload.d.activities.find(a => a.type === 0);
+    if (payload.op === 1) {
+        heartbeatInterval = setInterval(() => {
+            ws.send(JSON.stringify({ op: 3 }));
+        }, payload.d.heartbeat_interval);
+        ws.send(JSON.stringify({
+            op: 2,
+            d: {
+                subscribe_to_id: userId
+            }
+        }));
+    }
 
-  const avatarUrl = user.avatar
-    ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-    : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.discriminator) % 5}.png`;
+    if (payload.t === "INIT_STATE" || payload.t === "PRESENCE_UPDATE") {
+        const data = payload.d;
 
-  document.getElementById("avatar").src = avatarUrl;
-  document.getElementById("username").textContent = user.username;
-  document.getElementById("status").textContent = `Status: ${status}`;
-  document.getElementById("activity").textContent = activity
-    ? `Jogando: ${activity.name}`
-    : "Nenhum jogo ativo";
-});
+        const user = data.discord_user;
+        const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+        const username = user.username;
+        const displayName = user.global_name || user.username;
+        const status = data.discord_status;
+        const customStatus = data.activities.find(a => a.type === 4)?.state || "—";
 
-// Música (opcional)
-const music = document.getElementById("bgMusic");
-const toggleBtn = document.getElementById("toggleMusic");
-const volumeSlider = document.getElementById("volumeSlider");
+        document.getElementById("avatar").src = avatarUrl;
+        document.getElementById("username").textContent = `@${username}`;
+        document.getElementById("display-name").textContent = displayName;
+        document.getElementById("custom-status").textContent = customStatus;
 
-toggleBtn.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    toggleBtn.textContent = "🔊 Desligar Música";
-  } else {
-    music.pause();
-    toggleBtn.textContent = "🔇 Ligar Música";
-  }
-});
-
-volumeSlider.addEventListener("input", () => {
-  music.volume = volumeSlider.value;
-});
+        const statusDot = document.getElementById("status-dot");
+        const statusColors = {
+            online: "#43b581",
+            idle: "#faa61a",
+            dnd: "#f04747",
+            offline: "#747f8d"
+        };
+        statusDot.style.backgroundColor = statusColors[status] || "#747f8d";
+    }
+};
