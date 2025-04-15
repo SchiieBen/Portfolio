@@ -1,3 +1,26 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const music = document.getElementById('bgMusic');
+    const toggleButton = document.getElementById('toggleMusic');
+    const volumeSlider = document.getElementById('volumeSlider');
+
+    let isPlaying = false;
+
+    toggleButton.addEventListener('click', () => {
+        if (isPlaying) {
+            music.pause();
+            toggleButton.textContent = '🔇 Ligar Música';
+        } else {
+            music.play();
+            toggleButton.textContent = '🔊 Desligar Música';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    volumeSlider.addEventListener('input', () => {
+        music.volume = volumeSlider.value;
+    });
+
+    music.volume = volumeSlider.value;
 const userId = '423203807099355156';
 const socket = new WebSocket(`wss://api.lanyard.rest/socket`);
 
@@ -40,25 +63,4 @@ socket.addEventListener("message", (event) => {
     statusCircle.className = 'status ' + status;
 });
 
-const music = document.getElementById('bgMusic');
-const toggleButton = document.getElementById('toggleMusic');
-const volumeSlider = document.getElementById('volumeSlider');
 
-let isPlaying = false;
-
-toggleButton.addEventListener('click', () => {
-        if (isPlaying) {
-                music.pause();
-                toggleButton.textContent = '🔇 Ligar Música';
-        } else {
-                music.play();
-        toggleButton.textContent = '🔊 Desligar Música';
-            }
-        isPlaying = !isPlaying;
-        });
-
-volumeSlider.addEventListener('input', () => {
-        music.volume = volumeSlider.value;
-        });
-
-        music.volume = volumeSlider.value;
