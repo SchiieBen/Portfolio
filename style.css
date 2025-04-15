@@ -4,6 +4,12 @@ body {
     font-family: Arial, sans-serif;
     padding: 40px;
 }
+
+p, ol, li {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
 .github-link {
     color: white;
     font-size: 15px;
@@ -101,9 +107,15 @@ button {
     color: #ccc;
 }
 .music-controls {
-    margin-top: 20px;
-    margin-left: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #1e1f22;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
 }
+
 
 #volumeSlider {
     width: 200px;
