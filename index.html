@@ -1,46 +1,47 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Miguel de Oliveira Nascimento"> 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <title>Portfólio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Miguel de Oliveira Nascimento" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Portfólio</title>
 </head>
 <body>
-    <div class="alinhamento">
-        <h1>Miguel de Oliveira Nascimento</h1>
-        <h2>Cursando Engsoft - UVA</h2>
-        <p><strong>Em progresso...</strong></p>
-        <p>Esse site terá:</p>
-        <ol>
-            <li>Perfil conectado ao discord</li>
-            <li>Projetos conectados ao github</li>
-        </ol>
-        <a href="https://github.com/SchiieBen" class="github-link">Meu GitHub</a>
-    </div>
+  <div class="alinhamento">
+    <h1>Miguel de Oliveira Nascimento</h1>
+    <h2>Cursando Engsoft - UVA</h2>
+    <p><strong>Em progresso...</strong></p>
+    <p>Esse site terá:</p>
+    <ol>
+      <li>Perfil conectado ao discord</li>
+      <li>Projetos conectados ao github</li>
+    </ol>
+    <a href="https://github.com/SchiieBen" class="github-link">Meu GitHub</a>
+  </div>
 
-    <!-- Música de Fundo -->
-    <div class="music-controls">
-        <button id="toggleMusic">🔇 Ligar Música</button><br>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
-    </div>
-    <audio id="bgMusic" loop>
-        <source src="videoplayback.mp3" type="audio/mp3">
-        Seu navegador não suporta áudio.
-    </audio>
+  <div class="music-controls">
+    <button id="toggleMusic">🔇 Ligar Música</button><br>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="videoplayback.mp3" type="audio/mp3">
+    Seu navegador não suporta áudio.
+  </audio>
 
-    <!-- Card do Discord -->
-    <div class="discord-card" id="discord-card">
-        <img id="avatar" class="avatar" src="" alt="Avatar">
-        <div class="info">
-            <h2 id="username">Carregando...</h2>
-            <p id="status">Status: -</p>
-            <p id="activity">Jogando: -</p>
-        </div>
+  <!-- CARD DISCORD -->
+  <div class="discord-card">
+    <div class="banner"></div>
+    <div class="profile">
+      <img id="avatar" class="avatar" src="" alt="Avatar" />
+      <div class="user-info">
+        <h2 id="username">Carregando...</h2>
+        <p id="status">Status: -</p>
+        <p id="activity">Jogando: -</p>
+      </div>
     </div>
+  </div>
 
-    <script src="javascript.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
