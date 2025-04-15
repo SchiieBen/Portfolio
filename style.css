@@ -106,18 +106,31 @@ button {
     margin: 2px 0;
     color: #ccc;
 }
+
 .music-controls {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: #1e1f22;
-    padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
-
-#volumeSlider {
-    width: 200px;
-    margin-top: 8px;
+.music-controls button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background-color: #5865F2;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%;
 }
+
+.music-controls input[type="range"] {
+    width: 100%;
+}
+
