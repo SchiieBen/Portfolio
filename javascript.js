@@ -8,6 +8,30 @@ const activity = document.getElementById("activity");
 const customStatus = document.getElementById("custom-status");
 const statusCircle = document.getElementById("status-circle");
 
+        // 🎵 Controle de música
+        const music = document.getElementById('bgMusic');
+        const toggleButton = document.getElementById('toggleMusic');
+        const volumeSlider = document.getElementById('volumeSlider');
+
+        let isPlaying = false;
+
+        toggleButton.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                toggleButton.textContent = '🔇 Ligar Música';
+            } else {
+                music.play();
+                toggleButton.textContent = '🔊 Desligar Música';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        volumeSlider.addEventListener('input', () => {
+            music.volume = volumeSlider.value;
+        });
+
+        music.volume = volumeSlider.value;
+
 socket.addEventListener("open", () => {
     socket.send(JSON.stringify({
         op: 2,
