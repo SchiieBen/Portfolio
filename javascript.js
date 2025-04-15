@@ -21,28 +21,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     music.volume = volumeSlider.value;
-const userId = "423203807099355156";
 
-    async function getStatus() {
-        const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
-        const data = await res.json();
-        const statusDiv = document.getElementById("discord-status");
+    // Discord via Lanyard
+    const userId = '423203807099355156';
+    const apiUrl = `https://api.lanyard.rest/v1/users/${userId}`;
 
-        if (data.success) {
-            const { discord_user, discord_status, activities } = data.data;
-            let info = `<p><strong>${discord_user.username}#${discord_user.discriminator}</strong> está <strong>${discord_status}</strong></p>`;
-            const playing = activities.find(act => act.type === 0);
-            if (playing) {
-                info += `<p>🎮 Jogando: <strong>${playing.name}</strong></p>`;
-            }
-            statusDiv.innerHTML = info;
-        } else {
-            statusDiv.innerHTML = "<p>Não foi possível carregar o status do Discord.</p>";
+    async function updateDiscordCard() {
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (!data.success) throw new Error("Erro ao buscar dados");
+
+            const user = data.data.discord_user;
+            const status = data.data.discord_status;
+            const activities = data.data.activities;
+            const customStatus = activities.find(a => a.name === "Custom Status");
+            const playing = activities.find(a => a.type === 0);
+
+            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+            const displayName = user.global_name || user.username;
+
+            // Preencher os dados no card
+            document.getElementById('avatar').src = avatarUrl;
+            document.getElementById('global-name').textContent = displayName;
+            document.getElementById('username').textContent = `@${user.username}`;
+            document.getElementById('custom-status').textContent = customStatus?.state || "-";
+            document.getElementById('activity').textContent = playing
+                ? `🎮 Jogando: ${playing.name}`
+                : "Nenhum jogo ativo";
+
+            // Círculo de status
+            const statusCircle = document.getElementById('status-circle');
+            statusCircle.className = `status ${status}`;
+        } catch (error) {
+            console.error("Erro ao carregar status do Discord:", error);
+            document.getElementById('global-name').textContent = "Desconhecido";
+            document.getElementById('username').textContent = "@Erro";
+            document.getElementById('custom-status').textContent = "-";
+            document.getElementById('activity').textContent = "-";
         }
     }
 
-    getStatus();
-    setInterval(getStatus, 15000);
+    updateDiscordCard();
+    setInterval(updateDiscordCard, 15000); // Atualiza a cada 15s
 });
-
-
