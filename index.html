@@ -1,80 +1,47 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <!-- Define o padrão de caracteres, para acentos -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsividade -->
     <meta name="author" content="Miguel de Oliveira Nascimento"> 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> <!-- Ícone da aba -->
     <title>Portfólio</title>
-    <style>
-        body {
-            background-color: #333;
-            color: rgb(255, 255, 255);
-            font-family: Arial, sans-serif;
-        }
-        .alinhamento {
-            margin-left: 60px;
-            margin-top: 85px;
-            font-size: 18px;
-        }
-        .github-link {
-            color: white;
-            font-size: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 70px;
-            background-color: #444;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-        .github-link:hover {
-            background-color: #111;
-        }
-         .music-controls {
-            margin-left: 60px;
-            margin-top: 40px;
-        }
-        .music-controls button {
-            padding: 8px 16px;
-            font-size: 14px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            border: none;
-            background-color: #444;
-            color: white;
-            border-radius: 5px;
-        }
-        .music-controls input[type="range"] {
-            width: 200px;
-        }
-    </style>
-    
+    <link rel="stylesheet" href="style.css"> <!-- Importa o CSS externo -->
 </head>
+
 <body>
+    <!-- Bloco principal com informações -->
     <div class="alinhamento">
-        <h1>Miguel de Oliveira Nascimento</h1>
-        <h2>Cursando Engsoft - UVA</h2>
-        <p><strong>Site em progresso</strong></p>
-        <p>Esse site terá:</p>
+        <h1>Miguel</h1> <!-- Título principal -->
+        <h2>Estudante de Engsoft - UVA</h2>
+        <p><strong>Em progresso...</strong></p>
+        <p>As expectativas para esse site são de que ele tenha</p>
         <ol>
             <li>Perfil conectado ao discord</li>
             <li>Projetos conectados ao github</li>
-            <li>Musica: PLANTERA (Terraria) || METAL COVER by RichaadEB</li>
+            <li>Lugar teste para html e css?</li>
         </ol>
         <a href="https://github.com/SchiieBen" class="github-link">Meu GitHub</a>
     </div>
+
+    <!-- Controles de música -->
     <div class="music-controls">
         <button id="toggleMusic">🔇 Ligar Música</button><br>
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
     </div>
 
+    <!-- Status do Discord -->
+    <div id="discord-status"></div>
+
+    <!-- Música de fundo -->
     <audio id="bgMusic" loop>
         <source src="videoplayback.mp3" type="audio/mp3">
         Seu navegador não suporta áudio.
     </audio>
 
+    <!-- Script JavaScript -->
     <script>
+        // 🎵 Controle de música
         const music = document.getElementById('bgMusic');
         const toggleButton = document.getElementById('toggleMusic');
         const volumeSlider = document.getElementById('volumeSlider');
@@ -96,8 +63,34 @@
             music.volume = volumeSlider.value;
         });
 
-        // Volume inicial
         music.volume = volumeSlider.value;
+
+        // Status do Discord
+        const userId = "423203807099355156";
+
+        async function getStatus() {
+            const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+            const data = await res.json();
+            const statusDiv = document.getElementById("discord-status");
+
+            if (data.success) {
+                const { discord_user, discord_status, activities } = data.data;
+
+                let info = `<p><strong>${discord_user.username}#${discord_user.discriminator}</strong> está <strong>${discord_status}</strong></p>`;
+
+                const playing = activities.find(act => act.type === 0);
+                if (playing) {
+                    info += `<p>🎮 Jogando: <strong>${playing.name}</strong></p>`;
+                }
+
+                statusDiv.innerHTML = info;
+            } else {
+                statusDiv.innerHTML = "<p>Não foi possível carregar o status do Discord.</p>";
+            }
+        }
+
+        getStatus();
+        setInterval(getStatus, 15000); // Atualiza a cada 15s
     </script>
 </body>
 </html>
