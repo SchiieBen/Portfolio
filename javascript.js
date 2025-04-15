@@ -5,9 +5,13 @@ async function fetchDiscordData() {
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
+        console.log(data); // DEBUG
 
         const user = data.data.discord_user;
-        const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+        const avatarUrl = user.avatar 
+            ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+            : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.discriminator) % 5}.png`;
+
         const status = data.data.discord_status;
         const activity = data.data.activities.find(act => act.type === 0);
 
@@ -18,6 +22,7 @@ async function fetchDiscordData() {
             ? `Jogando: ${activity.name}` 
             : `Nenhum jogo ativo`;
     } catch (error) {
+        console.error("Erro ao buscar dados do Discord:", error);
         document.getElementById("username").textContent = "Erro ao carregar Discord";
     }
 }
