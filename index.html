@@ -1,96 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="PT-BR">
 <head>
-    <meta charset="UTF-8"> <!-- Define o padrão de caracteres, para acentos -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsividade -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Miguel de Oliveira Nascimento"> 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> <!-- Ícone da aba -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <title>Portfólio</title>
-    <link rel="stylesheet" href="style.css"> <!-- Importa o CSS externo -->
 </head>
-
 <body>
-    <!-- Bloco principal com informações -->
     <div class="alinhamento">
-        <h1>Miguel</h1> <!-- Título principal -->
-        <h2>Estudante de Engsoft - UVA</h2>
+        <h1>Miguel de Oliveira Nascimento</h1>
+        <h2>Cursando Engsoft - UVA</h2>
         <p><strong>Em progresso...</strong></p>
-        <p>As expectativas para esse site são de que ele tenha</p>
+        <p>Esse site terá:</p>
         <ol>
             <li>Perfil conectado ao discord</li>
             <li>Projetos conectados ao github</li>
-            <li>Lugar teste para html e css?</li>
         </ol>
         <a href="https://github.com/SchiieBen" class="github-link">Meu GitHub</a>
     </div>
 
-    <!-- Controles de música -->
+    <!-- Música de Fundo -->
     <div class="music-controls">
         <button id="toggleMusic">🔇 Ligar Música</button><br>
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
     </div>
-
-    <!-- Status do Discord -->
-    <div id="discord-status"></div>
-
-    <!-- Música de fundo -->
     <audio id="bgMusic" loop>
         <source src="videoplayback.mp3" type="audio/mp3">
         Seu navegador não suporta áudio.
     </audio>
 
-    <!-- Script JavaScript -->
-    <script>
-        // 🎵 Controle de música
-        const music = document.getElementById('bgMusic');
-        const toggleButton = document.getElementById('toggleMusic');
-        const volumeSlider = document.getElementById('volumeSlider');
+    <!-- Card do Discord -->
+    <div class="discord-card" id="discord-card">
+        <img id="avatar" class="avatar" src="" alt="Avatar">
+        <div class="info">
+            <h2 id="username">Carregando...</h2>
+            <p id="status">Status: -</p>
+            <p id="activity">Jogando: -</p>
+        </div>
+    </div>
 
-        let isPlaying = false;
-
-        toggleButton.addEventListener('click', () => {
-            if (isPlaying) {
-                music.pause();
-                toggleButton.textContent = '🔇 Ligar Música';
-            } else {
-                music.play();
-                toggleButton.textContent = '🔊 Desligar Música';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        volumeSlider.addEventListener('input', () => {
-            music.volume = volumeSlider.value;
-        });
-
-        music.volume = volumeSlider.value;
-
-        // Status do Discord
-        const userId = "423203807099355156";
-
-        async function getStatus() {
-            const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
-            const data = await res.json();
-            const statusDiv = document.getElementById("discord-status");
-
-            if (data.success) {
-                const { discord_user, discord_status, activities } = data.data;
-
-                let info = `<p><strong>${discord_user.username}#${discord_user.discriminator}</strong> está <strong>${discord_status}</strong></p>`;
-
-                const playing = activities.find(act => act.type === 0);
-                if (playing) {
-                    info += `<p>🎮 Jogando: <strong>${playing.name}</strong></p>`;
-                }
-
-                statusDiv.innerHTML = info;
-            } else {
-                statusDiv.innerHTML = "<p>Não foi possível carregar o status do Discord.</p>";
-            }
-        }
-
-        getStatus();
-        setInterval(getStatus, 15000); // Atualiza a cada 15s
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
