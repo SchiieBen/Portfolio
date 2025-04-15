@@ -4,6 +4,21 @@ body {
     font-family: Arial, sans-serif;
     padding: 40px;
 }
+.github-link {
+    color: white;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 70px;
+    background-color: #444;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.github-link:hover {
+    background-color: #111;
+}
 
 h1, h2 {
     margin: 0;
