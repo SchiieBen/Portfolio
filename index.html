@@ -31,6 +31,23 @@
         .github-link:hover {
             background-color: #111;
         }
+         .music-controls {
+            margin-left: 60px;
+            margin-top: 40px;
+        }
+        .music-controls button {
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #444;
+            color: white;
+            border-radius: 5px;
+        }
+        .music-controls input[type="range"] {
+            width: 200px;
+        }
     </style>
     
 </head>
@@ -47,5 +64,40 @@
         </ol>
         <a href="https://github.com/SchiieBen" class="github-link">Meu GitHub</a>
     </div>
+    <div class="music-controls">
+        <button id="toggleMusic">🔇 Ligar Música</button><br>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/audio/musica.mp3" type="audio/mp3">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const toggleButton = document.getElementById('toggleMusic');
+        const volumeSlider = document.getElementById('volumeSlider');
+
+        let isPlaying = false;
+
+        toggleButton.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                toggleButton.textContent = '🔇 Ligar Música';
+            } else {
+                music.play();
+                toggleButton.textContent = '🔊 Desligar Música';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        volumeSlider.addEventListener('input', () => {
+            music.volume = volumeSlider.value;
+        });
+
+        // Volume inicial
+        music.volume = volumeSlider.value;
+    </script>
 </body>
 </html>
