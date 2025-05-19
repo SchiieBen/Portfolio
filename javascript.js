@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleButton.addEventListener('click', () => {
         if (isPlaying) {
             music.pause();
-            toggleButton.textContent = '🔇 Ligar Música';
+            toggleButton.textContent = '🔇 Turn music ON';
         } else {
             music.play();
-            toggleButton.textContent = '🔊 Desligar Música';
+            toggleButton.textContent = '🔊 Turn music OFF';
         }
         isPlaying = !isPlaying;
     });
