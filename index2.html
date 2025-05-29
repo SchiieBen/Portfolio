@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" /> <!-- Define o padrão de caracteres, para acentos -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <!-- Responsividade para celular, etc -->
+  <meta name="author" content="Miguel de Oliveira Nascimento" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> <!-- Ícone da aba -->
+  <link rel="stylesheet" href="style.css" /> <!-- Importa o CSS externo -->
+  <title>Portfólio</title>
+</head>
+  
+<body>
+    <!-- Bloco principal com informações -->
+  <div class="alinhamento">
+    <h1>Hey, I`m Miguel</h1> <!-- Título principal -->
+    <h2>Software Engineering - UVA</h2>
+    <p><strong>Focusing in Game development, Animations using Unity 3D && Python</strong></p>
+    <a href="https://github.com/SchiieBen" class="github-link">GitHub</a>
+  </div>
+
+    <!-- Controles de música -->
+  <script src="javascript.js"></script>
+  <div class="music-controls">
+    <button id="toggleMusic">Music</button><br>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+  </div>
+  
+  <audio id="bgMusic" loop>
+    <source src="videoplayback.mp3" type="audio/mp3">
+    Your browser doesn`t support audio.
+  </audio>
+
+  <!-- CARD DISCORD -->
+  <div class="discord-card" id="discord-card">
+    <div class="left">
+        <div class="avatar-container">
+            <img id="avatar" class="avatar" src="" alt="Avatar">
+            <div id="status-circle" class="status"></div>
+        </div>
+    </div>
+    <div class="right">
+        <h2 id="global-name">Loading...</h2>
+        <p id="username">@Loading</p>
+        <p id="custom-status">Status: -</p>
+        <p id="activity">Playing: -</p>
+    </div>
+</div>
+
+</body>
+</html>
