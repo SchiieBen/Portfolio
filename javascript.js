@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const music = document.getElementById('bgMusic');
     const toggleButton = document.getElementById('toggleMusic');
@@ -73,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById("activity-name").textContent = "Nenhum jogo ativo";
                 document.getElementById("activity-icon").src = "fallback.png";
 }
-
 
             // Círculo de status
             const statusCircle = document.getElementById('status-circle');
