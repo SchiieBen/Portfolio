@@ -47,7 +47,7 @@ button {
     background: #1e1f22;
     padding: 16px;
     border-radius: 12px;
-    width: 320px;
+    width: 460px;
     margin: 40px 60px;
     color: white;
     box-shadow: 0 0 15px rgba(0, 255, 170, 0.2);
@@ -61,8 +61,8 @@ button {
 }
 
 .avatar {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
 }
 
