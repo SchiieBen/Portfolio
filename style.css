@@ -1,3 +1,4 @@
+/* layout geral */
 body {
     background-color: #2c2f33;
     color: white;
@@ -10,26 +11,42 @@ p, ol, li {
     line-height: 1.6;
 }
 
+/* alinhamento do bloco principal: texto central, card à esquerda */
+.top-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+/* texto centralizado */
+.alinhamento {
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* botão GitHub fixado no canto inferior direito, maior */
 .github-link {
+    position: fixed;
+    bottom: 150px;
+    right: 90px;
+    z-index: 1000;
     color: white;
     font-size: 15px;
     text-decoration: none;
     font-weight: bold;
-    margin-left: 70px;
     background-color: #444;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 14px 28px;
+    border-radius: 8px;
     display: inline-block;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .github-link:hover {
     background-color: #111;
 }
 
-h1, h2 {
-    margin: 0;
-}
-
+/* botão padrão */
 button {
     background-color: #5865F2;
     border: none;
@@ -41,19 +58,25 @@ button {
     margin: 8px 0;
 }
 
+h1, h2 {
+    margin: 0;
+}
+
+/* caixa do Discord à esquerda, conteúdo colado no topo */
 .discord-card {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* 🔥 CORRIGE o conteúdo vertical */
     background: #1e1f22;
-    padding: 16px;
+    padding: 20px;
     border-radius: 12px;
-    width: 460px;
-    margin: 40px 60px;
+    width: 350px;
+    height: 300px;
     color: white;
     box-shadow: 0 0 15px rgba(0, 255, 170, 0.2);
     font-family: 'Segoe UI', sans-serif;
 }
 
+/* avatar */
 .avatar-container {
     position: relative;
     width: 80px;
@@ -61,11 +84,12 @@ button {
 }
 
 .avatar {
-    width: 160px;
-    height: 160px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
 }
 
+/* status bolinha */
 .status {
     position: absolute;
     bottom: 5px;
@@ -82,10 +106,15 @@ button {
 .status.dnd { background-color: #f04747; }
 .status.offline { background-color: #747f8d; }
 
+/* info à direita do avatar */
 .right {
     margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
+/* textos dentro da info */
 #global-name {
     margin: 0;
     font-size: 18px;
@@ -98,16 +127,18 @@ button {
     font-size: 14px;
     color: #aaa;
 }
-#custom-status,
 
+#custom-status,
 #activity {
     font-size: 13px;
     margin: 2px 0;
     color: #ccc;
 }
 
+/* player de música */
 .music-controls {
     position: fixed;
+    width: 240px;
     bottom: 20px;
     right: 20px;
     background: #1e1f22;
