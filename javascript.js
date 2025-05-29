@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const music = document.getElementById('bgMusic');
     const toggleButton = document.getElementById('toggleMusic');
@@ -47,9 +49,31 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('global-name').textContent = displayName;
             document.getElementById('username').textContent = `@${user.username}`;
             document.getElementById('custom-status').textContent = customStatus?.state || "-";
-            document.getElementById('activity').textContent = playing
-                ? `🎮 Jogando: ${playing.name}`
-                : "Nenhum jogo ativo";
+            if (playing) {
+                document.getElementById("activity-name").textContent = playing.name || "-";
+                const iconEl = document.getElementById("activity-icon");
+
+                if (playing.assets?.large_image) {
+                    let image = playing.assets.large_image;
+                    let appId = playing.application_id;
+
+                    // Verifica se o link é externo (e não compatível com app-assets)
+                    if (image.startsWith("mp:") || image.startsWith("spotify:")) {
+                    console.warn("Imagem de app externa, fallback ativado:", image);
+                    iconEl.src = "fallback.png";
+                    } else {
+                        iconEl.src = `https://cdn.discordapp.com/app-assets/${appId}/${image}.png`;
+                    }
+                } else {
+                    
+                    iconEl.src = "fallback.png";
+                }
+
+            } else {
+                document.getElementById("activity-name").textContent = "Nenhum jogo ativo";
+                document.getElementById("activity-icon").src = "fallback.png";
+}
+
 
             // Círculo de status
             const statusCircle = document.getElementById('status-circle');
